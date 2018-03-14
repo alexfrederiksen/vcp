@@ -3,11 +3,20 @@
 FILE_C=10;
 ACTION_C=7;
 
-if [ $1 == "--help" ]; then
+print_help() {
     echo "Copies the current directory to the given one with intense logging.";
     echo "";
-    echo "USAGE: vcp <destination>";
+    echo "USAGE: ./vcp <destination>";
     echo "";
+}
+if [ "$#" -ne 1 ]; then
+    echo "Invalid number of arguments.";
+    print_help;
+    exit;
+fi
+
+if [ "$1" == "--help" ]; then
+    print_help;
     exit;
 fi
 
@@ -28,7 +37,7 @@ tput setaf $ACTION_C;
 echo "   Total: $count files";
 echo "";
 
-echo "Is this ok? [y/N]: ";
+printf "Is this ok? [y/N]: ";
 read answer;
 if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
     echo "Aborting...";
